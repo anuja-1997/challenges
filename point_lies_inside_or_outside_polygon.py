@@ -6,3 +6,39 @@
 #This generates equation - (A(x)<=P(x) OR A(x)<=Q(x))
 # If above 4 & 5 both becomes true then it is confirm that line segment intersects and given point lies in polygon
 # If it intersects for odd number times given point falls inside of polygon else outside.
+
+def check_if_point_lies_inside(polygon_coordinates, given_point):
+    i = 0
+    counter = 0;
+    while i < len(polygon_coordinates):
+        p = polygon_coordinates[i]
+        if (len(polygon_coordinates) == (i+1)):
+            q = polygon_coordinates[0]
+        else:
+            q = polygon_coordinates[i+1]
+
+        x1 = p[0]
+        x2 = q[0]
+        y1 = p[1]
+        y2 = q[1]
+
+        x = given_point[0]
+        y = given_point[1]
+        if (x <= x1 or x <= x2) and (y1 <= y <= y2):
+            counter = counter + 1;
+        i += 1
+
+    if (counter == 0):
+        #No intersects point lies outside
+        return False
+    else:
+        if((counter % 2) == 0):
+            #print("Point lies outside of polygon - {0}".format(given_point))
+            return False
+        else:
+            #print("Point lies inside of polygon - {0}".format(given_point))
+            return True
+
+
+print(check_if_point_lies_inside([[1,0], [8,3], [8,8], [1,5]], [3,5]))
+print(check_if_point_lies_inside([[-3,2], [-2,-0.8], [0,1.2], [2.2,0], [2,4.5]], [0,0]))
